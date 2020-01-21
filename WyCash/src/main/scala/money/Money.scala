@@ -1,11 +1,11 @@
 package money
 
-trait Money {
+class Money(var amount: Int, val curr: String) {
 
-  protected var amount: Int = _
-  protected var curr: String = ""
+  def times(multiplier: Int): Money = {
+    new Money(amount * multiplier, curr)
+  }
 
-  def times(multiplier: Int): Money
   def currency(): String = {
     curr
   }
@@ -14,16 +14,16 @@ trait Money {
     val money: Money = obj.asInstanceOf[Money]
 
     amount == money.amount &&
-    getClass().equals(money.getClass())
+    currency().equals(money.currency())
   }
 }
 
 object Money {
   def dollar(amount: Int): Money = {
-    new Dollar(amount, "USD")
+    new Money(amount, "USD")
   }
 
   def franc(amount: Int): Money = {
-    new Franc(amount, "CHF")
+    new Money(amount, "CHF")
   }
 }
