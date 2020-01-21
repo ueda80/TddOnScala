@@ -4,23 +4,28 @@ import org.scalatest.FunSuite
 
 class WyCash extends FunSuite {
   test("testMultiplication()") {
-    val five: Franc = new Franc(5)
-    assert(new Franc(10).equals(five.times(2)) == true)
-    assert(new Franc(15).equals(five.times(3)) == true)
+    val five: Money = Money.dollar(5)
+    assert(Money.dollar(10).equals(five.times(2)) == true)
+    assert(Money.dollar(15).equals(five.times(3)) == true)
 
   }
 
   test("testEquality()") {
-    assert(new Dollar(5).equals(new Dollar(5)) == true)
-    assert(new Dollar(5).equals(new Dollar(6)) == false)
-    assert(new Franc(5).equals(new Franc(5)) == true)
-    assert(new Franc(5).equals(new Franc(6)) == false)
-    assert(new Franc(5).equals(new Dollar(5)) == false)
+    assert(Money.dollar(5).equals(Money.dollar(5)) == true)
+    assert(Money.dollar(5).equals(Money.dollar(6)) == false)
+    assert(Money.franc(5).equals(Money.franc(5)) == true)
+    assert(Money.franc(5).equals(Money.franc(6)) == false)
+    assert(Money.franc(5).equals(Money.dollar(5)) == false)
   }
 
   test("testFrancMultiplication()") {
-    val five: Franc = new Franc(5)
-    assert(new Franc(10).equals(five.times(2)) == true)
-    assert(new Franc(15).equals(five.times(3)) == true)
+    val five: Money = Money.franc(5)
+    assert(Money.franc(10).equals(five.times(2)) == true)
+    assert(Money.franc(15).equals(five.times(3)) == true)
+  }
+
+  test("testCurrency()") {
+    assert("USD" == Money.dollar(1).currency())
+    assert("CHF" == Money.franc(1).currency())
   }
 }

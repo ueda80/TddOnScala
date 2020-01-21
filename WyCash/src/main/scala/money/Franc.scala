@@ -1,9 +1,10 @@
 package money
 
-class Franc(val a: Int) extends Money() {
+class Franc(val a: Int, val c: String) extends Money() {
   amount = a
+  curr = c
 
-  def times(multiplier: Int): Franc = {
-    new Franc(amount * multiplier)
+  def times(multiplier: Int): Money = {
+    Money.franc(amount * multiplier)
   }
 }
