@@ -2,11 +2,11 @@ package money
 
 class Money(var amount: Int, val curr: String) extends Expression{
 
-  def times(multiplier: Int): Money = {
+  override def times(multiplier: Int): Expression = {
     new Money(amount * multiplier, curr)
   }
 
-  def plus(addend: Money): Expression = {
+  override def plus(addend: Expression): Expression = {
     new Sum(this, addend)
   }
 
@@ -27,7 +27,8 @@ class Money(var amount: Int, val curr: String) extends Expression{
   }
 }
 
-object Money {
+object Mo
+ney {
   def dollar(amount: Int): Money = {
     new Money(amount, "USD")
   }

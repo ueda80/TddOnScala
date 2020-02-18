@@ -60,4 +60,34 @@ class WyCash extends FunSuite {
   test("testIdentityRate()") {
     assert(1 == new Bank().rate("USD", "USD"))
   }
+
+  test("testMixedAddition()") {
+    val fiveBucks: Money = Money.dollar(5)
+    val tenFrancs: Expression = Money.franc(10)
+    val bank: Bank = new Bank()
+    bank.addRate("CHF", "USD", 2)
+    val result: Money = bank.reduce(fiveBucks.plus(tenFrancs), "USD")
+    assert(Money.dollar(10) == result)
+  }
+
+  test("testSumPlusMoney()") {
+    val fiveBucks: Expression = Money.dollar(5)
+    val tenFrancs: Expression = Money.franc(10)
+    val bank: Bank = new Bank()
+    bank.addRate("CHF", "USD", 2)
+    val sum: Expression = new Sum(fiveBucks, tenFrancs).plus(fiveBucks)
+    val result: Money = bank.reduce(sum, "USD")
+    assert(Money.dollar(15) == result)
+  }
+
+  test("testSumTimes()") {
+    val fiveBucks: Expression = Money.dollar(5)
+    val tenFrancs: Expression = Money.franc(10)
+    val bank: Bank = new Bank()
+    bank.addRate("CHF", "USD", 2)
+    val sum: Expression = new Sum(fiveBucks, tenFrancs).times(2)
+    val result: Money = bank.reduce(sum, "USD")
+    assert(Money.dollar(20) == result)
+  }
+
 }
